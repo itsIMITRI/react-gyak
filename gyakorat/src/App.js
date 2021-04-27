@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import './App.css';
 import Button from './Button';
 import Stopper from './Stopper';
+import Frame from './Frame';
 
 function App() {
   const [szamlalo, setSzamlalo] = useState(0);
@@ -37,6 +38,18 @@ function App() {
       </div>
       <div className="stopper">
         <Stopper />
+      </div>
+      <div>
+        <Frame text="ember" color="green">
+          <Frame text="fiú" color="blue">
+            <Frame text="Peti" color="yellow" />
+            <Frame text="Feri" color="yellow" />
+          </Frame>
+          <Frame text="lány" color="red">
+            <Frame text="Panka" color="pink" />
+            <Frame text="Juliska" color="pink" />
+          </Frame>
+        </Frame>
       </div>
     </div>
   );
