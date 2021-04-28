@@ -1,10 +1,16 @@
-import logo from './logo.svg';
-import './App.css';
 import React, { useState } from 'react';
+import './App.css';
 
-function App() {
+export default function App() {
   const [list, setList] = useState([]);
   const [value, setValue] = useState('');
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    if (!value) {
+      return;
+    }
+  }
 
   function addItem(value) {
     const data = {
@@ -19,61 +25,53 @@ function App() {
     addItem(value);
     setValue('');
   }
-
   function remove(id) {
     const newList = list.filter((e) => e.id !== id);
     setList([...newList]);
   }
-
   function done(id) {
-    const doneElement = list.find((e) => e.id === id);
-    doneElement.isDone = true;
+    const newDone = list.find((e) => e.id === id);
+    newDone.isDone = !newDone.isDone;
     setList([...list]);
   }
-  function handleSubmit(e) {
-    e.preventDefault();
-    if (!value) {
-      return;
-    }
-  }
+
   return (
-    <div>
+    <div className="kula">
       <form onSubmit={handleSubmit}>
         <input
-          type="text"
+          key={value.id}
           value={value}
+          type="text"
           onChange={(e) => setValue(e.target.value)}
-        ></input>
-        <button type="submit" className="btn btn-primary" onClick={add}>
+        />
+        <button className="btn btn-primary" type="submit" onClick={add}>
           Küldés
         </button>
       </form>
       <div>
         {list.map((e) => (
-          <>
-            <div key={e.id} className={`${e.isDone ? 'done' : 'not-done'}`}>
-              {e.name}
-
-              <button
-                type="button"
-                className="btn btn-danger"
-                onClick={() => remove(e.id)}
-              >
-                Törlés
-              </button>
-              <button
-                type="button"
-                className="btn btn-success"
-                onClick={() => done(e.id)}
-              >
+          <div className={`${e.isDone ? 'done' : 'not-done'}`}>
+            {e.name}
+            <button
+              className={`${
+                e.isDone ? 'btn btn-danger' : 'btn btn-danger disabled'
+              }`}
+              onClick={() => remove(e.id)}
+            >
+              Törlés
+            </button>
+            {!e.isDone ? (
+              <button className="btn btn-success" onClick={() => done(e.id)}>
                 Kész
               </button>
-            </div>
-          </>
+            ) : (
+              <button className="btn btn-warning" onClick={() => done(e.id)}>
+                Nincs kész
+              </button>
+            )}
+          </div>
         ))}
       </div>
     </div>
   );
 }
-
-export default App;
