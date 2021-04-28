@@ -38,22 +38,23 @@ export default function App() {
 
   return (
     <div className="kula">
+      <h2>Todo</h2>
       <form onSubmit={handleSubmit}>
         <input
           key={value.id}
           value={value}
           type="text"
           onChange={(e) => setValue(e.target.value)}
-        />
+        />{' '}
         <button className="btn btn-primary" type="submit" onClick={add}>
           Küldés
         </button>
       </form>
-      <h1>{list.filter((e) => !e.isDone).length} megoldatan todo van</h1>
+      <h5>{list.filter((e) => !e.isDone).length} megoldatan todo van</h5>
       <div>
         {list.map((e) => (
           <div className={`${e.isDone ? 'done' : 'not-done'}`}>
-            {e.name}
+            {e.name}{' '}
             <button
               className={`${
                 e.isDone ? 'btn btn-danger' : 'btn btn-danger disabled'
@@ -61,7 +62,7 @@ export default function App() {
               onClick={() => remove(e.id)}
             >
               Törlés
-            </button>
+            </button>{' '}
             {!e.isDone ? (
               <button className="btn btn-success" onClick={() => done(e.id)}>
                 Kész
@@ -74,6 +75,9 @@ export default function App() {
           </div>
         ))}
       </div>
+      <button className="btn btn-secondary" onClick={() => setList([])}>
+        Nullázás
+      </button>
     </div>
   );
 }
