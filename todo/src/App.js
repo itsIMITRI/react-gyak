@@ -28,6 +28,7 @@ export default function App() {
   function remove(id) {
     const newList = list.filter((e) => e.id !== id);
     setList([...newList]);
+    alert('sikeres törlés!');
   }
   function done(id) {
     const newDone = list.find((e) => e.id === id);
@@ -48,6 +49,7 @@ export default function App() {
           Küldés
         </button>
       </form>
+      <h1>{list.filter((e) => !e.isDone).length} megoldatan todo van</h1>
       <div>
         {list.map((e) => (
           <div className={`${e.isDone ? 'done' : 'not-done'}`}>
